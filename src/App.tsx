@@ -1,42 +1,50 @@
-import Calendar from "./controlled-and-uncontrolled/Calendar";
-import "./App.css";
-import { useState } from "react";
+import { BrowserRouter, NavLink } from 'react-router-dom'
+import Routes, { routes } from './routes'
+import { FC, Suspense } from 'react'
+import { Layout, Menu, theme } from 'antd'
 
-function App() {
-  const [value, setValue] = useState<Date | undefined>(new Date("2024-5-21"));
+const { Sider, Content } = Layout
+
+const App: FC = () => {
+  const {
+    token: { colorBgContainer, borderRadiusLG }
+  } = theme.useToken()
+
   return (
-    <>
-      <Calendar
-        value={value}
-        onChange={(date) => {
-          // console.log(date.toLocaleDateString());
-          setValue(date);
-        }}
-      />
-      {/* <Calendar
-        defaultValue={value}
-        onChange={(date) => {
-          console.log(date.toLocaleDateString());
-        }}
-      /> */}
-      <button
-        onClick={() => {
-          setValue(undefined);
-          console.log(value?.toLocaleDateString());
-        }}
-      >
-        清空
-      </button>
-      <button
-        onClick={() => {
-          setValue(new Date("2024-5-23"));
-          console.log(value?.toLocaleDateString());
-        }}
-      >
-        赋值
-      </button>
-    </>
-  );
+    <BrowserRouter>
+      <Layout style={{ height: '100%' }}>
+        <Sider collapsible>
+          <div className="demo-logo-vertical" />
+          <Menu
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={['/controllable']}
+            items={routes
+              .filter((route) => !route.isHidden)
+              .map(({ path, lable }) => ({
+                key: path,
+                label: <NavLink to={path}>{lable}</NavLink>
+              }))}
+          />
+        </Sider>
+        <Layout>
+          <Content
+            style={{
+              margin: '24px 16px',
+              padding: 24,
+              minHeight: 280,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG
+            }}
+          >
+            <Suspense fallback={<div>加载中...</div>}>
+              <Routes />
+            </Suspense>
+          </Content>
+        </Layout>
+      </Layout>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
