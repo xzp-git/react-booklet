@@ -13,7 +13,7 @@ export const routes = [
   },
   { path: '/controllable', lable: '受控与非受控', element: <Controllable /> },
   { path: '/use-interval', lable: '定时器', element: <UseInterval /> },
-  { path: '/calendar', lable: '日历组件', element: <Calendar /> }
+  { path: '/calendar', lable: 'Mini日历组件', element: <Calendar /> }
 ]
 
 const AppRoutes = () => {
