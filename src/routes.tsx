@@ -4,13 +4,12 @@ import { Navigate, useRoutes } from 'react-router-dom'
 // 使用 React.lazy 按需加载组件
 const Controllable = lazy(() => import('@/pages/controllable/index'))
 const UseInterval = lazy(() => import('@/pages/use-interval/index'))
-const Calendar = lazy(() => import('@/pages/calendar/index'))
+const Calendar = lazy(() => import('@/pages/mini-calendar/index'))
 
 export const routes = [
   {
     path: '/',
-    element: <Navigate to="/controllable" replace />,
-    isHidden: true
+    element: <Navigate to="/controllable" replace />
   },
   { path: '/controllable', lable: '受控与非受控', element: <Controllable /> },
   { path: '/use-interval', lable: '定时器', element: <UseInterval /> },
@@ -18,7 +17,7 @@ export const routes = [
 ]
 
 const AppRoutes = () => {
-  return useRoutes(routes.filter((route) => !route.isHidden))
+  return useRoutes(routes)
 }
 
 export default AppRoutes

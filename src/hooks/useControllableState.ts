@@ -16,7 +16,7 @@ const useControllableState = <T>(
   props?: {
     defaultValue?: T
     value?: T
-    onChange?: (value: T) => void
+    onChange?: Dispatch<T>
   }
 ): [T | undefined, Dispatch<SetStateAction<T>>] => {
   const { defaultValue, value, onChange } = props || {}
